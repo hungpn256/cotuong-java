@@ -72,7 +72,7 @@ public class ConnectDB {
         	String UPassword = resultSet.getString("password");
         	int win = resultSet.getInt("win");
         	if(UPassword == password) {
-        		user = new User(UName,win);
+        		user = new User(UName,win,UPassword);
         	}
         	else throw new Exception("mat khau khong dung");
         }
@@ -101,8 +101,10 @@ public class ConnectDB {
          ResultSet resultSet = statement.executeQuery(sql);
          while(resultSet.next()) {
         	 String UName = resultSet.getString("username");
+        	 String UPassword = resultSet.getString("password");
         	 int win = resultSet.getInt("win");
-        	 User u = new User(UName,win);
+        	 
+        	 User u = new User(UName,win,UPassword);
         	 listUser.add(u);
          }
          statement.close();
