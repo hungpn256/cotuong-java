@@ -6,13 +6,17 @@ import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
+import controller.PaticipantDAO;
+import model.Paticipant;
+
 public class Login extends JFrame implements ActionListener {
-	private JTextField email;
+	private JTextField username;
 	private JPasswordField password;
-	private JLabel LEmail;
+	private JLabel LUsername;
 	private JLabel LPassword;
 	private JButton BLogin;
 	private JButton NavigateRegister;
@@ -24,21 +28,21 @@ public class Login extends JFrame implements ActionListener {
 		initComponent();
 	}
 	public void initComponent() {
-		email = new JTextField("");
+		username = new JTextField("");
 		password = new JPasswordField("");
-		LEmail = new JLabel("username");
+		LUsername = new JLabel("username");
 		LPassword = new JLabel("password");
 		BLogin = new JButton("Login");
 		NavigateRegister = new JButton("Register");
-		this.LEmail.setBounds(10, 20, 100, 30);
-		this.email.setBounds(110, 20, 200, 30);
+		this.LUsername.setBounds(10, 20, 100, 30);
+		this.username.setBounds(110, 20, 200, 30);
 		this.LPassword.setBounds(10, 60, 100, 30);
 		this.password.setBounds(110, 60, 200, 30);
 		this.BLogin.setBounds(50, 100, 100, 30);
 		this.NavigateRegister.setBounds(200, 100, 100, 30);
-		this.add(email);
+		this.add(username);
 		this.add(password);
-		this.add(LEmail);
+		this.add(LUsername);
 		this.add(LPassword);
 		this.add(BLogin);
 		this.add(NavigateRegister);
@@ -63,7 +67,17 @@ public class Login extends JFrame implements ActionListener {
 	}
 	public void login() {
 		System.out.println("Login");
-		this.na.navigateGameUI();
+		try {
+			String uName = this.username.getText();
+			String pWord = this.password.getText();
+			Paticipant p = (new PaticipantDAO()).login(uName, pWord);
+			System.out.println(p+"paticipant");
+			this.na.navigateGameUI();
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			JOptionPane.showMessageDialog(this, "Tai khoan mat khau khong dung");
+		}
 		
 	}
 
